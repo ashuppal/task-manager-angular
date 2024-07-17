@@ -1,7 +1,5 @@
-import { Component, signal, computed } from '@angular/core';
-import { TEST_USERS } from '../test-users';
+import { Component, Input } from '@angular/core';
 
-const randomUser = Math.floor(Math.random() * TEST_USERS.length);
 
 @Component({
   selector: 'app-user',
@@ -11,16 +9,15 @@ const randomUser = Math.floor(Math.random() * TEST_USERS.length);
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  selectedUser = signal(TEST_USERS[randomUser]);
-  imagePath = computed(() => 'assets/users/' + this.selectedUser().avatar);
+ 
+  @Input() avatar!: string;
+  @Input() name!: string;
 
-  // get imagePath(){
-  //   return 'assets/users/' + this.selectedUser.avatar;
-  // }
+  get imagePath() {
+    return 'assets/users/' + this.avatar;
+  }
 
   onSelectUser() {
-    const randomUser = Math.floor(Math.random() * TEST_USERS.length);
-    //set method is used to update the value of signal
-    this.selectedUser.set(TEST_USERS[randomUser]);
+  
   }
 }
